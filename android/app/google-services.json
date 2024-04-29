@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "146054874882",
+    "project_id": "smartlocker-df2cb",
+    "storage_bucket": "smartlocker-df2cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146054874882:android:2ef1cc92fca2890fbfe41b",
+        "android_client_info": {
+          "package_name": "com.example.smartlocker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeQ24Ub1MXCE668JAfFY_TLhvz9-z4CkQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
