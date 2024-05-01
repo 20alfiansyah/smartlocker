@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
 class AppBars extends StatefulWidget implements PreferredSizeWidget{
-  const AppBars({super.key});
+  final int selectedIndex;
+  final VoidCallback setPage;
+  const AppBars({super.key,required this.selectedIndex, required this.setPage});
 
   @override
   State<AppBars> createState() => _AppBarsState();
@@ -35,7 +38,6 @@ class _AppBarsState extends State<AppBars> {
   }
   BoxDecoration _boxDecoration(){
     return BoxDecoration(
-      borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
       color: Color(0xFF17151A)
     );
   }
@@ -44,19 +46,28 @@ class _AppBarsState extends State<AppBars> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap: (){},
+          onTap: (){
+           widget.setPage();
+          },
           child: Transform(
             transform: Matrix4.rotationY(math.pi),
             alignment: Alignment.center,
-            child: Icon(
+            child: 
+            widget.selectedIndex == 0 ? 
+            Icon(
               Icons.exit_to_app,
               color: Colors.white,
               size: 30,
-            ),
+            ):
+            Icon(
+              Icons.chevron_right_outlined,
+              color: Colors.white,
+              size: 30,
+            )
           ),
         ),
         Text(
-          "Home",
+          widget.selectedIndex == 1 ? "Pesanan" : widget.selectedIndex == 2 ? "Profile" : "Home",
           style: GoogleFonts.poppins(
             textStyle: TextStyle(
               color: Colors.white,
