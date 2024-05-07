@@ -1,11 +1,21 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:smartlocker/screens/main_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smartlocker/authRoute.dart';
+import 'package:smartlocker/bloc/auth/bloc/auth_bloc.dart';
+import 'package:smartlocker/firebase_options.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MyApp());
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  
+  // MultiBlocProvider should wrap the entire app, including MaterialApp
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(create: (context) => AuthBloc())
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,10 +30,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ThemeData().colorScheme.copyWith(
           primary: Color(0xFF0072FF),
         ),
+        scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const MainPage(),
+      home: const AuthRoute(),
     );
   }
 }

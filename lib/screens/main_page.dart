@@ -1,7 +1,6 @@
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:smartlocker/screens/home_page.dart';
 import 'package:smartlocker/screens/order_page.dart';
 import 'package:smartlocker/screens/profile_page.dart';

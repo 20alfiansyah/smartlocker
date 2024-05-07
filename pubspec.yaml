@@ -42,6 +42,10 @@ dependencies:
   qr_flutter: ^4.1.0
   bloc: ^8.1.4
   flashy_tab_bar2: ^0.0.10
+  flutter_bloc: ^8.1.5
+  equatable: ^2.0.5
+  uuid: ^4.4.0
+  awesome_snackbar_content: ^0.1.3
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +73,7 @@ flutter:
   assets:
     - lib/assets/images/loginSplash.png
     - lib/assets/images/SignupSplash.png
+    - lib/assets/images/locker3d.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
