@@ -1,22 +1,24 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smartlocker/widgets/locker_card.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final String username;
+  final Future<void> Function(String, int) startPayment;
+  const HomePage({super.key, required this.username, required this.startPayment});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  final firebaseUser =  FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
+        SizedBox(
           width: double.infinity,
           height: 250,
           child: Stack(
@@ -25,7 +27,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Expanded(
                     child: Container(
-                      color:  Color(0xFF17151A),
+                      color:  const Color(0xFF17151A),
                     ),
                   ),
                   Expanded(
@@ -39,6 +41,18 @@ class _HomePageState extends State<HomePage> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                   child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
+                        )
+                      ],
+                      color: Colors.white,
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    ),
                     child: Row(
                       children: [
                         Expanded(
@@ -53,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                                       "Welcome,",
                                       overflow: TextOverflow.clip,
                                       style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
+                                        textStyle: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 20,
                                           fontWeight: FontWeight.w600,
@@ -65,10 +79,10 @@ class _HomePageState extends State<HomePage> {
                                 Row(
                                   children: [
                                     Text(
-                                      "20alfiansyah",
+                                      "${widget.username}",
                                       overflow: TextOverflow.clip,
                                       style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
+                                        textStyle: const TextStyle(
                                           color: Color(0xFF0072FF),
                                           fontSize: 20,
                                           fontWeight: FontWeight.w600,
@@ -77,16 +91,16 @@ class _HomePageState extends State<HomePage> {
                                     )
                                   ],
                                 ),
-                                SizedBox(height: 10,),
+                                const SizedBox(height: 10,),
                                 Row(
                                   children: [
-                                    Icon(Icons.place, size: 15, color: Color(0xFF0072FF),),
-                                    SizedBox(width: 3,),
+                                    const Icon(Icons.place, size: 15, color: Color(0xFF0072FF),),
+                                    const SizedBox(width: 3,),
                                     Text(
                                       "Location : ",
                                       overflow: TextOverflow.clip,
                                       style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
+                                        textStyle: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 13,
                                           fontWeight: FontWeight.w600,
@@ -97,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                                       "Depok",
                                       overflow: TextOverflow.clip,
                                       style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
+                                        textStyle: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 13,
                                           fontWeight: FontWeight.w600,
@@ -108,13 +122,13 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 Row(
                                   children: [
-                                    Icon(Icons.calendar_month, size: 15, color: Color(0xFF0072FF),),
-                                    SizedBox(width: 3,),
+                                    const Icon(Icons.calendar_month, size: 15, color: Color(0xFF0072FF),),
+                                    const SizedBox(width: 3,),
                                     Text(
                                       "Date : ",
                                       overflow: TextOverflow.clip,
                                       style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
+                                        textStyle: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 13,
                                           fontWeight: FontWeight.w600,
@@ -125,7 +139,7 @@ class _HomePageState extends State<HomePage> {
                                       "5/6/2024",
                                       overflow: TextOverflow.clip,
                                       style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
+                                        textStyle: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 13,
                                           fontWeight: FontWeight.w600,
@@ -136,13 +150,13 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 Row(
                                   children: [
-                                    Icon(Icons.punch_clock, size: 15, color: Color(0xFF0072FF),),
-                                    SizedBox(width: 3,),
+                                    const Icon(Icons.punch_clock, size: 15, color: Color(0xFF0072FF),),
+                                    const SizedBox(width: 3,),
                                     Text(
                                       "Time : ",
                                       overflow: TextOverflow.clip,
                                       style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
+                                        textStyle: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 13,
                                           fontWeight: FontWeight.w600,
@@ -153,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                                       "10.00 WIB",
                                       overflow: TextOverflow.clip,
                                       style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
+                                        textStyle: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 13,
                                           fontWeight: FontWeight.w600,
@@ -174,24 +188,104 @@ class _HomePageState extends State<HomePage> {
                         )
                       ],
                     ),
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 1,
-                          blurRadius: 10,
-                          offset: Offset(0, 5),
-                        )
-                      ],
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
                   ),
                 ),
               )
             ],
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3),
+                      color: Colors.green
+                    ),
+                    width: 10,
+                    height: 10,
+                  ),
+                  SizedBox(width: 5,),
+                  Text(
+                    "Booked",
+                    style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      )
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3),
+                      color: Colors.red
+                    ),
+                    width: 10,
+                    height: 10,
+                  ),
+                  SizedBox(width: 5,),
+                  Text(
+                    "Broken",
+                    style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      )
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3),
+                      color: Colors.grey
+                    ),
+                    width: 10,
+                    height: 10,
+                  ),
+                  SizedBox(width: 5,),
+                  Text(
+                    "Empty",
+                    style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      )
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  LockerCard(productName: "Loker 1",productPrice: 10000, startPayment: widget.startPayment,),
+                  LockerCard(productName: "Loker 2",productPrice: 10000, startPayment: widget.startPayment,),
+                  LockerCard(productName: "Loker 3",productPrice: 10000, startPayment: widget.startPayment,),
+                ],
+              )
+            ],
+          ),
+        )
       ],
     );
   }

@@ -1,6 +1,5 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smartlocker/bloc/auth/bloc/auth_bloc.dart';
@@ -22,10 +21,10 @@ class _LoginPageState extends State<LoginPage> {
   bool isShow = false;
   showLoaderDialog(BuildContext context){
     AlertDialog alert=AlertDialog(
-      content: new Row(
+      content: Row(
         children: [
-          CircularProgressIndicator(),
-          Container(margin: EdgeInsets.only(left: 7),child:Text("Loading..." )),
+          const CircularProgressIndicator(),
+          Container(margin: const EdgeInsets.only(left: 7),child:const Text("Loading..." )),
         ],),
     );
     showDialog(barrierDismissible: false,
@@ -269,7 +268,7 @@ class _LoginPageState extends State<LoginPage> {
                             listener: (context, state) {
                               if (state is AuthSuccess) {
                                 Navigator.pop(context);
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const MainPage()));
                                 final snackBar = SnackBar(
                                   elevation: 0,
                                   behavior: SnackBarBehavior.floating,
@@ -288,6 +287,7 @@ class _LoginPageState extends State<LoginPage> {
                                 showLoaderDialog(context);
                               }
                               else if (state is AuthError){
+                                Navigator.pop(context);
                                 final snackBar = SnackBar(
                                   elevation: 0,
                                   behavior: SnackBarBehavior.floating,
@@ -367,8 +367,7 @@ class _LoginPageState extends State<LoginPage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      SignUp()));
-                                          print('berhasil');
+                                                      const SignUp()));
                                         },
                                         child: Text(
                                           "Sign Up",

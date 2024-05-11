@@ -1,6 +1,5 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
@@ -11,13 +10,12 @@ import 'package:smartlocker/screens/login_page.dart';
 class AppBars extends StatefulWidget implements PreferredSizeWidget {
   final int selectedIndex;
   final VoidCallback setPage;
-  const AppBars(
-      {super.key, required this.selectedIndex, required this.setPage});
+  const AppBars({super.key, required this.selectedIndex, required this.setPage});
 
   @override
   State<AppBars> createState() => _AppBarsState();
   @override
-  Size get preferredSize => Size.fromHeight(100);
+  Size get preferredSize => const Size.fromHeight(100);
 }
 
 class _AppBarsState extends State<AppBars> {
@@ -44,7 +42,7 @@ class _AppBarsState extends State<AppBars> {
   }
 
   BoxDecoration _boxDecoration() {
-    return BoxDecoration(color: Color(0xFF17151A));
+    return const BoxDecoration(color: Color(0xFF17151A));
   }
 
   Widget _topBar() {
@@ -52,7 +50,7 @@ class _AppBarsState extends State<AppBars> {
       listener: (context, state) {
         if (state is AuthInitial) {
           Navigator.pop(context);
-          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
           final snackBar = SnackBar(
             elevation: 0,
             behavior: SnackBarBehavior.floating,
@@ -97,12 +95,12 @@ class _AppBarsState extends State<AppBars> {
                   transform: Matrix4.rotationY(math.pi),
                   alignment: Alignment.center,
                   child: widget.selectedIndex == 0
-                      ? Icon(
+                      ? const Icon(
                           Icons.exit_to_app,
                           color: Colors.white,
                           size: 30,
                         )
-                      : Icon(
+                      : const Icon(
                           Icons.chevron_right_outlined,
                           color: Colors.white,
                           size: 30,
@@ -115,14 +113,14 @@ class _AppBarsState extends State<AppBars> {
                       ? "Profile"
                       : "Home",
               style: GoogleFonts.poppins(
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.w600)),
             ),
             GestureDetector(
               onTap: () {},
-              child: CircleAvatar(
+              child: const CircleAvatar(
                 backgroundColor: Colors.white,
               ),
             )

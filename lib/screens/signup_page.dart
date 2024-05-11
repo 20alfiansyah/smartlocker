@@ -1,6 +1,5 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smartlocker/bloc/auth/bloc/auth_bloc.dart';
@@ -38,10 +37,10 @@ class _SignUpState extends State<SignUp> {
 
   showLoaderDialog(BuildContext context){
     AlertDialog alert=AlertDialog(
-      content: new Row(
+      content: Row(
         children: [
-          CircularProgressIndicator(),
-          Container(margin: EdgeInsets.only(left: 7),child:Text("Loading..." )),
+          const CircularProgressIndicator(),
+          Container(margin: const EdgeInsets.only(left: 7),child:const Text("Loading..." )),
         ],),
     );
     showDialog(barrierDismissible: false,
@@ -66,7 +65,7 @@ class _SignUpState extends State<SignUp> {
                     Text(
                       "Create Account",
                       style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           color: Colors.black,
                           fontSize: 25,
                           fontWeight: FontWeight.w600,
@@ -85,7 +84,7 @@ class _SignUpState extends State<SignUp> {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Form(
@@ -161,7 +160,7 @@ class _SignUpState extends State<SignUp> {
                                       horizontal: 20, vertical: 17)))
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Column(
@@ -237,7 +236,7 @@ class _SignUpState extends State<SignUp> {
                                       horizontal: 20, vertical: 17)))
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Column(
@@ -319,7 +318,7 @@ class _SignUpState extends State<SignUp> {
                                       horizontal: 20, vertical: 17))),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Column(
@@ -399,7 +398,7 @@ class _SignUpState extends State<SignUp> {
                                       horizontal: 20, vertical: 17))),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       BlocConsumer<AuthBloc, AuthState>(
@@ -425,6 +424,7 @@ class _SignUpState extends State<SignUp> {
                             showLoaderDialog(context);
                           }
                           else if (state is AuthError){
+                            Navigator.pop(context);
                             final snackBar = SnackBar(
                                   elevation: 0,
                                   behavior: SnackBarBehavior.floating,
@@ -449,7 +449,6 @@ class _SignUpState extends State<SignUp> {
                                     child: ElevatedButton(
                                       onPressed: () {
                                         if (_formfield.currentState! .validate()) {
-                                          print("Password: ${_confirmpassController.text.trim()}");
                                           BlocProvider.of<AuthBloc>(context).add(
                                             SignUpUser(email: _emailController.text.trim(), password: _confirmpassController.text.trim(), username: _usernameController.text.trim())
                                           );
@@ -504,7 +503,7 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      Navigator.push(context,MaterialPageRoute(builder: (context) => LoginPage()));
+                                      Navigator.push(context,MaterialPageRoute(builder: (context) => const LoginPage()));
                                     },
                                     child: Text(
                                       "Log In",

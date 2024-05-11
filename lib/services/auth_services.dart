@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
@@ -7,14 +9,14 @@ class AuthService{
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void>addUserDetails(String email, String password, String username) async{
-    var uuid = Uuid();
+    var uuid = const Uuid();
     final User firebaseUser = _auth.currentUser!;
     Map<String, dynamic> userDetails = {
       'id' : uuid.v1(),
       'email': email,
       'password': password,
       'username': username,
-      'order': ''
+      'order': []
     };
     await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).set(userDetails);
   }

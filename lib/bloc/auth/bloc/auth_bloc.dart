@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/widgets.dart';
 import 'package:smartlocker/models/User.dart';
 import 'package:smartlocker/services/auth_services.dart';
 
@@ -24,7 +24,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(const AuthError(message: 'create user failed'));
         }
       } catch (e) {
-        print(e.toString());
         emit(const AuthError(message: 'An error occurred'));
       }
     });
@@ -41,7 +40,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(const AuthError(message: 'cant sign in'));
         }
       } catch (e) {
-        print(e.toString());
+         emit(const AuthError(message: 'An error occurred'));
       }
     });
 
@@ -51,8 +50,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await FirebaseAuth.instance.signOut();
         emit(AuthInitial());
       } catch (e) {
-        print('error');
-        print(e.toString());
+         emit(const AuthError(message: 'An error occurred'));
       }
     });
   }
