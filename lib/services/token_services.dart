@@ -1,13 +1,11 @@
 import 'dart:convert';
-import 'package:dartz/dartz.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:smartlocker/common/failure.dart';
 import 'package:smartlocker/models/Token.dart';
 import 'package:uuid/uuid.dart';
 
 class TokenService {
-  Future<Either<Failure,TokenModel>> getToken(String productName,int productPrice) async {
+  Future<dynamic> getToken(String productName,int productPrice) async {
     var uuid = const Uuid();
     var apiUrl = dotenv.env['BASE_URL'] ?? '';
     // Payload
@@ -28,16 +26,12 @@ class TokenService {
       );
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
-        return right(TokenModel(token: jsonResponse['token']));
+        return TokenModel(token: jsonResponse['token']);
       } else {
-        return left(ServerFailure(
-            data: response.body,
-            code: response.statusCode,
-            message: 'Unknown Error'));
+        return 'Error: ${response.statusCode} - ${response.body}';
       }
     } catch (e) {
-      return left(ServerFailure(
-          data: e.toString(), code: 400, message: 'Unknown Error'));
+      return 'Error: $e';
     }
   }
 }

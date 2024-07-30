@@ -10,7 +10,8 @@ import 'package:smartlocker/screens/login_page.dart';
 class AppBars extends StatefulWidget implements PreferredSizeWidget {
   final int selectedIndex;
   final VoidCallback setPage;
-  const AppBars({super.key, required this.selectedIndex, required this.setPage});
+  const AppBars(
+      {super.key, required this.selectedIndex, required this.setPage});
 
   @override
   State<AppBars> createState() => _AppBarsState();
@@ -50,7 +51,8 @@ class _AppBarsState extends State<AppBars> {
       listener: (context, state) {
         if (state is AuthInitial) {
           Navigator.pop(context);
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const LoginPage()));
           final snackBar = SnackBar(
             elevation: 0,
             behavior: SnackBarBehavior.floating,
@@ -64,8 +66,7 @@ class _AppBarsState extends State<AppBars> {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(snackBar);
-        }
-        else if (state is AuthError){
+        } else if (state is AuthError) {
           final snackBar = SnackBar(
             elevation: 0,
             behavior: SnackBarBehavior.floating,
@@ -87,9 +88,9 @@ class _AppBarsState extends State<AppBars> {
           children: [
             GestureDetector(
               onTap: () {
-                widget.selectedIndex == 0 ?
-                BlocProvider.of<AuthBloc>(context).add(SignOutUser()):
-                widget.setPage();
+                widget.selectedIndex == 0
+                    ? BlocProvider.of<AuthBloc>(context).add(SignOutUser())
+                    : widget.setPage();
               },
               child: Transform(
                   transform: Matrix4.rotationY(math.pi),
@@ -108,7 +109,7 @@ class _AppBarsState extends State<AppBars> {
             ),
             Text(
               widget.selectedIndex == 1
-                  ? "Pesanan"
+                  ? "Order"
                   : widget.selectedIndex == 2
                       ? "Profile"
                       : "Home",
@@ -122,6 +123,7 @@ class _AppBarsState extends State<AppBars> {
               onTap: () {},
               child: const CircleAvatar(
                 backgroundColor: Colors.white,
+                backgroundImage: AssetImage("lib/assets/images/profile.png"),
               ),
             )
           ],

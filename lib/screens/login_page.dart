@@ -19,28 +19,38 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passController = TextEditingController();
 
   bool isShow = false;
-  showLoaderDialog(BuildContext context){
-    AlertDialog alert=AlertDialog(
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
       content: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const CircularProgressIndicator(),
-          Container(margin: const EdgeInsets.only(left: 7),child:const Text("Loading..." )),
-        ],),
+          SizedBox(
+            width: 5,
+          ),
+          Container(
+              margin: const EdgeInsets.only(left: 7),
+              child: const Text("Loading...")),
+        ],
+      ),
     );
-    showDialog(barrierDismissible: false,
-      context:context,
-      builder:(BuildContext context){
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
         return alert;
       },
     );
   }
+
   void setisShow() {
     setState(() {
       isShow = !isShow;
     });
   }
+
   @override
-  void dispose(){
+  void dispose() {
     _emailController.dispose();
     _passController.dispose();
     super.dispose();
@@ -268,7 +278,11 @@ class _LoginPageState extends State<LoginPage> {
                             listener: (context, state) {
                               if (state is AuthSuccess) {
                                 Navigator.pop(context);
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const MainPage()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const MainPage()));
                                 final snackBar = SnackBar(
                                   elevation: 0,
                                   behavior: SnackBarBehavior.floating,
@@ -282,11 +296,9 @@ class _LoginPageState extends State<LoginPage> {
                                 ScaffoldMessenger.of(context)
                                   ..hideCurrentSnackBar()
                                   ..showSnackBar(snackBar);
-                              }
-                              else if(state is AuthLoading){
+                              } else if (state is AuthLoading) {
                                 showLoaderDialog(context);
-                              }
-                              else if (state is AuthError){
+                              } else if (state is AuthError) {
                                 Navigator.pop(context);
                                 final snackBar = SnackBar(
                                   elevation: 0,
@@ -311,23 +323,35 @@ class _LoginPageState extends State<LoginPage> {
                                       Expanded(
                                         child: ElevatedButton(
                                           onPressed: () {
-                                            if (_formfield.currentState!.validate()) {
-                                              BlocProvider.of<AuthBloc>(context).add(
-                                                SignInUser(email: _emailController.text.trim(), password: _passController.text.trim())
-                                              );
+                                            if (_formfield.currentState!
+                                                .validate()) {
+                                              BlocProvider.of<AuthBloc>(context)
+                                                  .add(SignInUser(
+                                                      email: _emailController
+                                                          .text
+                                                          .trim(),
+                                                      password: _passController
+                                                          .text
+                                                          .trim()));
                                             }
                                           },
                                           style: ButtonStyle(
-                                              padding:MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20,vertical: 14)),
-                                              backgroundColor: const MaterialStatePropertyAll( Color(0xFF0072FF)),
+                                              padding:
+                                                  MaterialStateProperty.all(
+                                                      const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 20,
+                                                          vertical: 14)),
+                                              backgroundColor:
+                                                  const MaterialStatePropertyAll(
+                                                      Color(0xFF0072FF)),
                                               shape: MaterialStatePropertyAll(
                                                 RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
                                               )),
-                                          child: 
-                                          Text(
+                                          child: Text(
                                             "Login",
                                             style: GoogleFonts.poppins(
                                               textStyle: const TextStyle(
